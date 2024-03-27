@@ -13,7 +13,7 @@ var productContainer = [];
 if (localStorage.getItem('products') !==null) 
 {
     productContainer = JSON.parse( localStorage.getItem('products'));
-    displayProducts(); 
+    displayProducts(productContainer); 
 }
 
 
@@ -42,18 +42,18 @@ function clearForm() {
 }
 
 
-function displayProducts() 
+function displayProducts(arr) 
 {
     var cartona = ``;
-    for (var i = 0; i < productContainer.length; i++)
+    for (var i = 0; i < arr.length; i++)
     {
         cartona += `<div class="col-md-2">
                     <div class="product">
-        <img  src="${productContainer[i].image}"  class="w-100" alt="">
-            <h2 class="h6">${productContainer[i].code}</h2>
-            <p>${productContainer[i].description}.</p>
-            <h3 class="h6">${productContainer[i].price}</h3>
-            <h3 class="h6">${productContainer[i].category}</h3>
+        <img  src="${arr[i].image}"  class="w-100" alt="">
+            <h2 class="h6">${arr[i].code}</h2>
+            <p>${arr[i].description}.</p>
+            <h3 class="h6">${arr[i].price}</h3>
+            <h3 class="h6">${arr[i].category}</h3>
             <button onclick="deleteProduct(${i})" class="btn btn-outline-danger btn-sm w-100 my-2" >Delete <i class="fas fa-trash-alt"></i></button>
             <button onclick="setFormForUpdate(${i})" class="btn btn-outline-warning btn-sm w-100 my-2" >Update <i class="fas fa-pen"></i></button>
         </div>
@@ -76,25 +76,15 @@ function deleteProduct(deletedIndex)
 function searchProducts()
 {
     var term = searchInput.value;
-    var cartona = ``;
+    var termProducts = [];
     for(var i=0; i<productContainer.length;i++)
     {
         if(productContainer[i].code.toLowerCase().includes(term.toLowerCase()) == true) 
         {
-            cartona += `<div class="col-md-2">
-                    <div class="product">
-            <img  src="${productContainer[i].image}"  class="w-100" alt="">
-            <h2 class="h6">${productContainer[i].code}</h2>
-            <p>${productContainer[i].description}.</p>
-            <h3 class="h6">${productContainer[i].price}</h3>
-            <h3 class="h6">${productContainer[i].category}</h3>
-            <button onclick="deleteProduct(${i})" class="btn btn-outline-danger btn-sm w-100 my-2" >Delete <i class="fas fa-trash-alt"></i></button>
-            <button onclick="setFormForUpdate(${i})" class="btn btn-outline-warning btn-sm w-100 my-2" >Update <i class="fas fa-pen"></i></button>
-            </div>
-            </div>`;
+            termProducts.push(productContainer[i])
         }
     }
-    document.getElementById('rowData').innerHTML = cartona;
+    displayProducts(termProducts)
 }
 
 
