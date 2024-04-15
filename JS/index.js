@@ -110,7 +110,7 @@ function updateProduct()
     updateBtn.classList.add('d-none');
     productContainer[updatedIndex].code = productNameInput.value;
     productContainer[updatedIndex].price = productPriceInput.value;
-    productContainer[updatedIndex].description = productDescription.value;
+    productContainer[updatedIndex].description = productDescriptionInput.value;
     productContainer[updatedIndex].category = productCategoryInput.value;
     
     displayProducts();
@@ -119,4 +119,34 @@ function updateProduct()
 
     
 }
+
+function validateInputs(element)
+{
+
+    var regex = {
+        productName:/^[A-Z][a-z]{2,8}$/,
+        productPrice:/^[1-9][0-9][0-9]/,
+        productDescription:/^[A-Za-z]{3,100}$/,
+        productCategory:/^(Mobile Phone|TV|Printer|Laptop|Camera)$/
+        }
+    
+    if(regex[element.id].test(element.value) == true)
+    {
+    
+        element.classList.add('is-valid');
+        element.classList.remove('is-invalid');
+        element.nextElementSibling.classList.replace('d-block', 'd-none');
+        return true;
+    }
+
+    else{
+        element.classList.add('is-invalid');
+        element.classList.remove('is-valid');
+        element.nextElementSibling.classList.replace('d-none', 'd-block');
+        return false;
+    }   
+}
+
+
+
 
